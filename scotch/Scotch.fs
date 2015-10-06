@@ -18,8 +18,9 @@ module Scotch =
     type Request =
         {Method : string
          URI : string
-         Body : string
-         Headers : Header array}
+         RequestHeaders : Header array
+         ContentHeaders : Header array
+         Body : string}
 
     type Status =
         {Code : HttpStatusCode
@@ -27,7 +28,8 @@ module Scotch =
 
     type Response =
         {Status : Status
-         Headers : Header array
+         ResponseHeaders : Header array
+         ContentHeaders : Header array
          Body : string
          HttpVersion : Version}
 
@@ -47,8 +49,9 @@ module Scotch =
             jobj [
                 "method" .= x.Method
                 "uri" .= x.URI
+                "requestHeaders" .= x.RequestHeaders
+                "contentHeaders" .= x.ContentHeaders
                 "body" .= x.Body
-                "headers" .= x.Headers
             ]
 
     type Status with
@@ -62,7 +65,8 @@ module Scotch =
         static member ToJSON (x: Response) =
             jobj [
                 "status" .= x.Status
-                "headers" .= x.Headers
+                "responseHeaders" .= x.ResponseHeaders
+                "contentHeaders" .= x.ContentHeaders
                 "body" .= x.Body
                 "httpVersion" .= x.HttpVersion.ToString()
             ]
@@ -85,14 +89,21 @@ module Scotch =
         | null -> async {return ""}
         | _ -> content.ReadAsStringAsync() |> Async.AwaitTask
 
+    let getContentHeaders (content:HttpContent) =
+        match content with
+        | null -> [||]
+        | _ -> convertHeaders content.Headers
+
     let convertRequestAsync (request: HttpRequestMessage) =
         async {
             let! requestBody = getContentAsStringAsync request.Content
             return
                 {Method = request.Method.ToString()
                  URI = request.RequestUri.ToString()
+                 RequestHeaders = convertHeaders request.Headers
+                 ContentHeaders = getContentHeaders request.Content
                  Body = requestBody
-                 Headers = convertHeaders request.Headers}
+                 }
         }
 
     let convertResponseAsync (response: HttpResponseMessage) =
@@ -100,7 +111,8 @@ module Scotch =
             let! responseBody = getContentAsStringAsync response.Content
             return
                 {Status = {Code = response.StatusCode; Message = response.ReasonPhrase}
-                 Headers = convertHeaders response.Headers
+                 ResponseHeaders = convertHeaders response.Headers
+                 ContentHeaders = getContentHeaders response.Content
                  Body = responseBody
                  HttpVersion = response.Version}
         }
