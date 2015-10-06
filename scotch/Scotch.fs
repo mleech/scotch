@@ -9,6 +9,7 @@ module Scotch =
     open System.Json
     open System.Net
     open System.Net.Http
+    open System.Threading.Tasks
 
     type Header =
         {Key : string
@@ -18,7 +19,7 @@ module Scotch =
         {Method : string
          URI : string
          Body : string
-         Headers : Header list}
+         Headers : Header array}
 
     type Status =
         {Code : HttpStatusCode
@@ -26,7 +27,7 @@ module Scotch =
 
     type Response =
         {Status : Status
-         Headers : Header list
+         Headers : Header array
          Body : string
          HttpVersion : Version}
 
@@ -75,20 +76,63 @@ module Scotch =
             ]
 
     let getHeaders (headers: Headers.HttpHeaders) =
-        headers |> Seq.map (fun h -> {Key = h.Key; Value = String.Join(",", h.Value)})
+        headers |> Seq.map (fun h -> {Key = h.Key; Value = String.Join(",", h.Value)}) |> Seq.toArray
 
-    let getHttpInteractionAsync (url: string) =
+    let persistCassetteToFile (filePath:string, interactions:HttpInteraction list) =
+        let serializedInteraction = toJSON interactions
+        File.WriteAllText (filePath, serializedInteraction.ToString())
+
+    type RecordingHandler(filePath:string, innerHandler:HttpMessageHandler) =
+        inherit DelegatingHandler(innerHandler)
+
+        let mutable interactions = []
+        let mutable tasks = []
+
+        override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
+            let baseResult = base.SendAsync(request, cancellationToken)
+            let workflow = async {
+                let! requestBody =
+                    match request.Content with
+                    | null -> async {return ""}
+                    | _ -> request.Content.ReadAsStringAsync() |> Async.AwaitTask
+
+                let interactionRequest =
+                    {Method = request.Method.ToString()
+                     URI = request.RequestUri.ToString()
+                     Body = requestBody
+                     Headers = getHeaders request.Headers}
+
+                let! httpResponse = baseResult |> Async.AwaitTask
+
+                let status = {Code = httpResponse.StatusCode; Message = httpResponse.ReasonPhrase}
+                let httpVersion = httpResponse.Version;
+                let! responseBody = httpResponse.Content.ReadAsStringAsync() |> Async.AwaitTask
+                let responseHeaders = getHeaders httpResponse.Headers
+                let interactionResponse = {Status = status; Headers = responseHeaders; Body = responseBody; HttpVersion = httpVersion}
+
+                interactions <- List.Cons({Request = interactionRequest; Response = interactionResponse; RecordedAt = DateTimeOffset.Now}, interactions)
+
+                return httpResponse
+            }
+
+            let task = Async.StartAsTask workflow
+            tasks <- List.Cons(task, tasks)
+            task
+
+        override handler.Dispose (disposing:bool) =
+            if disposing then
+                Task.WaitAll [| for t in tasks -> t :> Task |]
+                persistCassetteToFile (filePath, List.rev interactions)
+
+            base.Dispose(disposing)
+
+    let makeHttpCallAsync () =
         async {
-            let request = {Method = HttpMethod.Get.ToString(); URI = url; Body = ""; Headers = []}
-
-            let httpClient = new HttpClient()
-            let! httpResponse= httpClient.GetAsync(url) |> Async.AwaitTask
-
-            let status = {Code = httpResponse.StatusCode; Message = httpResponse.ReasonPhrase}
-            let httpVersion = httpResponse.Version;
-            let! body = httpResponse.Content.ReadAsStringAsync() |> Async.AwaitTask
-            let responseHeaders = getHeaders httpResponse.Headers |> Seq.toList
-            let response = {Status = status; Headers = responseHeaders; Body = body; HttpVersion = httpVersion}
-
-            return {Request = request; Response = response; RecordedAt = DateTimeOffset.Now}
+            let clientHandler = new HttpClientHandler()
+            use recordingHandler = new RecordingHandler("C:/Users/Martin/dev/testing123.json", clientHandler)
+            let httpClient = new HttpClient(recordingHandler)
+            httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/1") |> Async.AwaitTask |> ignore
+            httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/2") |> Async.AwaitTask |> ignore
+            httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/3") |> Async.AwaitTask |> ignore
+            return ()
         }
