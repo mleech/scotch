@@ -75,8 +75,35 @@ module Scotch =
                 "recordedAt" .= x.RecordedAt
             ]
 
-    let getHeaders (headers: Headers.HttpHeaders) =
-        headers |> Seq.map (fun h -> {Key = h.Key; Value = String.Join(",", h.Value)}) |> Seq.toArray
+    let convertHeaders (headers: Headers.HttpHeaders) =
+        headers
+        |> Seq.map (fun h -> {Key = h.Key; Value = String.Join(",", h.Value)})
+        |> Seq.toArray
+
+    let getContentAsStringAsync (content:HttpContent) =
+        match content with
+        | null -> async {return ""}
+        | _ -> content.ReadAsStringAsync() |> Async.AwaitTask
+
+    let convertRequestAsync (request: HttpRequestMessage) =
+        async {
+            let! requestBody = getContentAsStringAsync request.Content
+            return
+                {Method = request.Method.ToString()
+                 URI = request.RequestUri.ToString()
+                 Body = requestBody
+                 Headers = convertHeaders request.Headers}
+        }
+
+    let convertResponseAsync (response: HttpResponseMessage) =
+        async {
+            let! responseBody = getContentAsStringAsync response.Content
+            return
+                {Status = {Code = response.StatusCode; Message = response.ReasonPhrase}
+                 Headers = convertHeaders response.Headers
+                 Body = responseBody
+                 HttpVersion = response.Version}
+        }
 
     let persistCassetteToFile (filePath:string, interactions:HttpInteraction list) =
         let serializedInteraction = toJSON interactions
@@ -91,28 +118,15 @@ module Scotch =
         override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
             let baseResult = base.SendAsync(request, cancellationToken)
             let workflow = async {
-                let! requestBody =
-                    match request.Content with
-                    | null -> async {return ""}
-                    | _ -> request.Content.ReadAsStringAsync() |> Async.AwaitTask
-
-                let interactionRequest =
-                    {Method = request.Method.ToString()
-                     URI = request.RequestUri.ToString()
-                     Body = requestBody
-                     Headers = getHeaders request.Headers}
-
-                let! httpResponse = baseResult |> Async.AwaitTask
-
-                let status = {Code = httpResponse.StatusCode; Message = httpResponse.ReasonPhrase}
-                let httpVersion = httpResponse.Version;
-                let! responseBody = httpResponse.Content.ReadAsStringAsync() |> Async.AwaitTask
-                let responseHeaders = getHeaders httpResponse.Headers
-                let interactionResponse = {Status = status; Headers = responseHeaders; Body = responseBody; HttpVersion = httpVersion}
-
-                interactions <- List.Cons({Request = interactionRequest; Response = interactionResponse; RecordedAt = DateTimeOffset.Now}, interactions)
-
-                return httpResponse
+                let! response = baseResult |> Async.AwaitTask
+                let! interactionRequest = convertRequestAsync request
+                let! interactionResponse = convertResponseAsync response
+                let httpInteraction =
+                    {Request = interactionRequest
+                     Response = interactionResponse
+                     RecordedAt = DateTimeOffset.Now}
+                interactions <- List.Cons(httpInteraction, interactions)
+                return response
             }
 
             let task = Async.StartAsTask workflow
