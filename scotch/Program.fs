@@ -8,12 +8,26 @@ open System.Net.Http
 open System.Threading.Tasks
 open Scotch
 
-let makeHttpCallAsync () =
+let recordLiveHttpCallsAsync () =
     async {
-        let cassettePath = "C:/Users/Martin/dev/testing123.json"
+        let cassettePath = "C:/Users/Martin/dev/liveCalls.json"
         let clientHandler = new HttpClientHandler()
         use recordingHandler = new Scotch.RecordingHandler(clientHandler, cassettePath)
-        let httpClient = new HttpClient(recordingHandler)
+        use httpClient = new HttpClient(recordingHandler)
+        let! res1 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/1") |> Async.AwaitTask
+        let! res2 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/2") |> Async.AwaitTask
+        let! res3 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/3") |> Async.AwaitTask
+        return ()
+    }
+
+let replayRecordedCallsAsync () =
+    async {
+        let originalCassettePath = "C:/Users/Martin/dev/liveCalls.json"
+        let replayedCassettePath = "C:/Users/Martin/dev/replayedCalls.json"
+        let clientHandler = new HttpClientHandler()
+        use replayHandler = new Scotch.RecordingHandler(clientHandler, originalCassettePath)
+        use recordingHandler = new Scotch.RecordingHandler(replayHandler, replayedCassettePath)
+        use httpClient = new HttpClient(recordingHandler)
         let! res1 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/1") |> Async.AwaitTask
         let! res2 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/2") |> Async.AwaitTask
         let! res3 = httpClient.GetAsync("http://jsonplaceholder.typicode.com/posts/3") |> Async.AwaitTask
@@ -22,5 +36,6 @@ let makeHttpCallAsync () =
 
 [<EntryPoint>]
 let main argv =
-    makeHttpCallAsync () |> Async.RunSynchronously
+    recordLiveHttpCallsAsync () |> Async.RunSynchronously
+    replayRecordedCallsAsync () |> Async.RunSynchronously
     0
