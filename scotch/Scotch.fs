@@ -9,7 +9,6 @@ module Scotch =
     open System.Json
     open System.Net
     open System.Net.Http
-    open System.Threading.Tasks
 
     type Header =
         {Key : string

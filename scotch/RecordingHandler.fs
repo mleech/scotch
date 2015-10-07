@@ -6,7 +6,7 @@ open System.Net.Http
 open System.Threading.Tasks
 open Scotch
 
-type RecordingHandler(filePath:string, innerHandler:HttpMessageHandler) =
+type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     inherit DelegatingHandler(innerHandler)
 
     let mutable interactions = []
@@ -33,7 +33,7 @@ type RecordingHandler(filePath:string, innerHandler:HttpMessageHandler) =
     override handler.Dispose (disposing:bool) =
         if disposing then
             Task.WaitAll [| for t in tasks -> t :> Task |]
-            persistCassetteToFile (filePath, List.rev interactions)
+            persistCassetteToFile (cassettePath, List.rev interactions)
 
         base.Dispose(disposing)
 
