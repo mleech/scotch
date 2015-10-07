@@ -1,6 +1,8 @@
 ﻿namespace Scotch
 
+open Fleece
 open System
+open System.IO
 open System.Net
 open System.Net.Http
 open System.Threading.Tasks
@@ -16,8 +18,8 @@ type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
         let baseResult = base.SendAsync(request, cancellationToken)
         let workflow = async {
             let! response = baseResult |> Async.AwaitTask
-            let! interactionRequest = convertRequestAsync request
-            let! interactionResponse = convertResponseAsync response
+            let! interactionRequest = toRequestAsync request
+            let! interactionResponse = toResponseAsync response
             let httpInteraction =
                 {Request = interactionRequest
                  Response = interactionResponse
@@ -33,7 +35,8 @@ type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     override handler.Dispose (disposing:bool) =
         if disposing then
             Task.WaitAll [| for t in tasks -> t :> Task |]
-            persistCassetteToFile (cassettePath, List.rev interactions)
+            let serializedInteraction = toJSON (List.rev interactions)
+            File.WriteAllText (cassettePath, serializedInteraction.ToString())
 
         base.Dispose(disposing)
 

@@ -151,45 +151,45 @@ module Scotch =
                 }
             | x -> Failure (sprintf "Expected response, found %A" x)
 
-    let convertHeaders (headers: Headers.HttpHeaders) =
+    let toHeaders (headers: Headers.HttpHeaders) =
         headers
         |> Seq.map (fun h -> {Key = h.Key; Value = String.Join(",", h.Value)})
         |> Seq.toArray
 
-    let getContentAsStringAsync (content:HttpContent) =
+    let toStringAsync (content:HttpContent) =
         match content with
         | null -> async {return ""}
         | _ -> content.ReadAsStringAsync() |> Async.AwaitTask
 
-    let getContentHeaders (content:HttpContent) =
+    let toContentHeaders (content:HttpContent) =
         match content with
         | null -> [||]
-        | _ -> convertHeaders content.Headers
+        | _ -> toHeaders content.Headers
 
-    let convertRequestAsync (request: HttpRequestMessage) =
+    let toRequestAsync (request: HttpRequestMessage) =
         async {
-            let! requestBody = getContentAsStringAsync request.Content
+            let! requestBody = toStringAsync request.Content
             return
                 {Method = request.Method.ToString()
                  URI = request.RequestUri.ToString()
-                 RequestHeaders = convertHeaders request.Headers
-                 ContentHeaders = getContentHeaders request.Content
+                 RequestHeaders = toHeaders request.Headers
+                 ContentHeaders = toContentHeaders request.Content
                  Body = requestBody
                  }
         }
 
-    let convertResponseAsync (response: HttpResponseMessage) =
+    let toResponseAsync (response: HttpResponseMessage) =
         async {
-            let! responseBody = getContentAsStringAsync response.Content
+            let! responseBody = toStringAsync response.Content
             return
                 {Status = {Code = response.StatusCode; Message = response.ReasonPhrase}
-                 ResponseHeaders = convertHeaders response.Headers
-                 ContentHeaders = getContentHeaders response.Content
+                 ResponseHeaders = toHeaders response.Headers
+                 ContentHeaders = toContentHeaders response.Content
                  Body = responseBody
                  HttpVersion = response.Version}
         }
 
-    let httpResponseMessage(response: Response) =
+    let toHttpResponseMessage (response: Response) =
         let result = new HttpResponseMessage(response.Status.Code)
         result.ReasonPhrase <- response.Status.Message
         result.Version <- response.HttpVersion
@@ -198,11 +198,3 @@ module Scotch =
         for h in response.ContentHeaders do content.Headers.TryAddWithoutValidation(h.Key, h.Value) |> ignore
         result.Content <- content
         result
-
-    let persistCassetteToFile (cassettePath:string, interactions:HttpInteraction list) =
-        let serializedInteraction = toJSON interactions
-        File.WriteAllText (cassettePath, serializedInteraction.ToString())
-
-    let readCassetteFromFile (cassettePath:string) : HttpInteraction list ParseResult  =
-        let jsonString = File.ReadAllText(cassettePath)
-        parseJSON jsonString

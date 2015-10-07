@@ -2,6 +2,7 @@
 
 open Fleece
 open System
+open System.IO
 open System.Net
 open System.Net.Http
 open System.Threading.Tasks
@@ -10,7 +11,8 @@ open Scotch
 type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     inherit DelegatingHandler(innerHandler)
 
-    let cassetteParseResult = Scotch.readCassetteFromFile cassettePath
+    let jsonString = File.ReadAllText(cassettePath)
+    let cassetteParseResult = parseJSON jsonString
 
     override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
         let interactions =
@@ -23,12 +25,12 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
             && receivedRequest.URI.Equals(recordedRequest.URI, StringComparison.InvariantCultureIgnoreCase)
 
         let workflow = async {
-            let! receivedRequest = Scotch.convertRequestAsync request
+            let! receivedRequest = Scotch.toRequestAsync request
 
             // TODO: Handle request not found
             let matchedInteraction = List.find (fun i -> requestsMatch receivedRequest i.Request) interactions
             let matchedResponse = matchedInteraction.Response
-            let responseMessage = Scotch.httpResponseMessage matchedResponse
+            let responseMessage = Scotch.toHttpResponseMessage matchedResponse
             return responseMessage
         }
 
