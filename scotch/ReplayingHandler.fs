@@ -6,7 +6,7 @@ open System.IO
 open System.Net
 open System.Net.Http
 open System.Threading.Tasks
-open Scotch
+open Scotch.Helpers
 
 type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     inherit DelegatingHandler(innerHandler)
@@ -25,12 +25,12 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
             && receivedRequest.URI.Equals(recordedRequest.URI, StringComparison.InvariantCultureIgnoreCase)
 
         let workflow = async {
-            let! receivedRequest = Scotch.toRequestAsync request
+            let! receivedRequest = toRequestAsync request
 
             // TODO: Handle request not found
             let matchedInteraction = List.find (fun i -> requestsMatch receivedRequest i.Request) interactions
             let matchedResponse = matchedInteraction.Response
-            let responseMessage = Scotch.toHttpResponseMessage matchedResponse
+            let responseMessage = matchedResponse.ToHttpResponseMessage()
             return responseMessage
         }
 

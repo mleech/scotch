@@ -6,7 +6,7 @@ open System.IO
 open System.Net
 open System.Net.Http
 open System.Threading.Tasks
-open Scotch
+open Scotch.Helpers
 
 type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     inherit DelegatingHandler(innerHandler)
@@ -24,12 +24,12 @@ type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
                 {Request = interactionRequest
                  Response = interactionResponse
                  RecordedAt = DateTimeOffset.Now}
-            interactions <- List.Cons(httpInteraction, interactions)
+            interactions <- httpInteraction :: interactions
             return response
         }
 
         let task = Async.StartAsTask workflow
-        tasks <- List.Cons(task, tasks)
+        tasks <- task :: tasks
         task
 
     override handler.Dispose (disposing:bool) =
