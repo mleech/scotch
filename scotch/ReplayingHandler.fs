@@ -14,6 +14,8 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     let jsonString = File.ReadAllText(cassettePath)
     let cassetteParseResult = parseJSON jsonString
 
+    new(cassettePath:string) = new ReplayingHandler(new HttpClientHandler(), cassettePath)
+
     override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
         let interactions =
             match cassetteParseResult with
