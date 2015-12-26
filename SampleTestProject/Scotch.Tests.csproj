@@ -7,8 +7,8 @@
     <ProjectGuid>{E0A16E71-5E47-449D-97C1-D9EF205E2668}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleTestProject</RootNamespace>
-    <AssemblyName>SampleTestProject</AssemblyName>
+    <RootNamespace>Scotch.Tests</RootNamespace>
+    <AssemblyName>Scotch.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumService.cs" />
-    <Compile Include="AlbumServiceTests.cs" />
+    <Compile Include="RecordingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

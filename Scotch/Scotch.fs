@@ -188,3 +188,6 @@ module Helpers =
                  HttpVersion = response.Version}
         }
 
+    let requestsMatch receivedRequest recordedRequest =
+        receivedRequest.Method.Equals(recordedRequest.Method, StringComparison.InvariantCultureIgnoreCase)
+        && receivedRequest.URI.Equals(recordedRequest.URI, StringComparison.InvariantCultureIgnoreCase)

@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
-    <Name>scotch</Name>
+    <Name>Scotch</Name>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Scotch.fs" />
+    <Compile Include="Cassette.fs" />
     <Compile Include="RecordingHandler.fs" />
     <Compile Include="ReplayingHandler.fs" />
     <Compile Include="Program.fs" />
