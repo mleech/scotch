@@ -26,7 +26,7 @@ type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
                  Response = interactionResponse
                  RecordedAt = DateTimeOffset.Now}
 
-            Cassette.updateInteraction cassettePath httpInteraction
+            Cassette.UpdateInteraction cassettePath httpInteraction
 
             return response
         }

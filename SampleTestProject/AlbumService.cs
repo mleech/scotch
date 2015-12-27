@@ -36,5 +36,16 @@ namespace SampleTestProject
 
             return albums;
         }
+
+        public async Task<Album> GetAsync(int id)
+        {
+            var url = $"http://jsonplaceholder.typicode.com/albums/{id}";
+            var response = await _httpClient.GetAsync(url);
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            var album = JsonConvert.DeserializeObject<Album>(jsonString);
+
+            return album;
+        }
     }
 }

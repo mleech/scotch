@@ -9,9 +9,9 @@ open System.Net.Http
 module Cassette =
     let locker = new Object()
 
-    let readCassette (cassettePath: string) : HttpInteraction list =
+    let ReadCassette (cassettePath: string) : HttpInteraction [] =
         if (not (File.Exists(cassettePath))) then
-            []
+            [||]
         else
             let jsonString = File.ReadAllText(cassettePath)
             let cassetteParseResult = parseJSON jsonString
@@ -23,18 +23,19 @@ module Cassette =
 
             interactions
 
-    let writeCassette cassettePath (httpInteractions: HttpInteraction list) =
-        let serializedInteraction = toJSON (List.rev httpInteractions)
-        File.WriteAllText (cassettePath, serializedInteraction.ToString())
+    let WriteCassette cassettePath (httpInteractions: HttpInteraction []) =
+            let serializedInteraction = toJSON (Seq.toList httpInteractions)
+            File.WriteAllText (cassettePath, serializedInteraction.ToString())
 
-    let updateInteraction cassettePath httpInteraction =
+    let UpdateInteraction cassettePath httpInteraction =
         lock locker ( fun () ->
-            let existingInteractions = readCassette cassettePath
+            let existingInteractions = ReadCassette cassettePath
+            let matchingIndex = Array.FindIndex (existingInteractions, fun i -> Helpers.requestsMatch httpInteraction.Request i.Request) 
             let newInteractions =
-                match existingInteractions with
-                | [] -> [httpInteraction]
+                match matchingIndex with
+                | -1 -> Array.append existingInteractions [|httpInteraction|]
                 | _ -> existingInteractions
-                       |> List.map  (fun i -> if (Helpers.requestsMatch httpInteraction.Request i.Request) then httpInteraction else i)
+                       |> Array.mapi  (fun index item -> if (index = matchingIndex) then httpInteraction else item)
 
-            writeCassette cassettePath newInteractions
+            WriteCassette cassettePath newInteractions
        )
