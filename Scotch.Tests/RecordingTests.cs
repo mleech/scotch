@@ -3,10 +3,10 @@ using System.IO;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Scotch;
+using SampleTestProject;
 using Xunit;
 
-namespace SampleTestProject
+namespace Scotch.Tests
 {
     public class RecordingTests : IDisposable
     {
