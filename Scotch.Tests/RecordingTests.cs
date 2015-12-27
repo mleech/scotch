@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Scotch.Tests
         public async Task AppendsNewInteractionToCassetteFile()
         {
             var originalInteractionsInCassette = Cassette.ReadCassette(_albumByIdCassettePath);
-            Assert.Equal(1, originalInteractionsInCassette.Length);
+            Assert.Equal(1, originalInteractionsInCassette.Count());
 
             var recordingHandler = new RecordingHandler(_albumByIdCassettePath);
             var httpClient = new HttpClient(recordingHandler);
@@ -49,7 +50,7 @@ namespace Scotch.Tests
             Assert.Equal(2, album.Id);
 
             var newInteractionsInCassette = Cassette.ReadCassette(_albumByIdCassettePath);
-            Assert.Equal(2, newInteractionsInCassette.Length);
+            Assert.Equal(2, newInteractionsInCassette.Count());
         }
 
         private string GetSourceFileDirectory([CallerFilePath] string sourceFilePath = "")
