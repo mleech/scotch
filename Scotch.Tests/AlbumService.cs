@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace SampleTestProject
+namespace Scotch.Tests
 {
 
     public class Album

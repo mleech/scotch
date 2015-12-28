@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using SampleTestProject;
 using Xunit;
 
 namespace Scotch.Tests
