@@ -1,0 +1,194 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "uri": "http://jsonplaceholder.typicode.com/albums/1",
+      "requestHeaders": [],
+      "contentHeaders": [],
+      "body": ""
+    },
+    "response": {
+      "status": {
+        "code": "200",
+        "message": "OK"
+      },
+      "responseHeaders": [
+        {
+          "Connection": "\"\\\"keep-alive\\\"\""
+        },
+        {
+          "Vary": "\"\\\"Origin\\\"\""
+        },
+        {
+          "Access-Control-Allow-Credentials": "\"\\\"true\\\"\""
+        },
+        {
+          "Pragma": "\"\\\"no-cache\\\"\""
+        },
+        {
+          "X-Content-Type-Options": "\"\\\"nosniff\\\"\""
+        },
+        {
+          "Cache-Control": "\"\\\"no-cache\\\"\""
+        },
+        {
+          "Date": "\"\\\"Sun, 27 Dec 2015 15:00:13 GMT\\\"\""
+        },
+        {
+          "ETag": "\"\\\"W/\\\\\\\"40-YY2U4cKEt8FUawcGjccrRg\\\\\\\"\\\"\""
+        },
+        {
+          "Server": "\"\\\"Cowboy\\\"\""
+        },
+        {
+          "Via": "\"\\\"1.1 vegur\\\"\""
+        },
+        {
+          "X-Powered-By": "\"\\\"Express\\\"\""
+        }
+      ],
+      "contentHeaders": [
+        {
+          "Content-Length": "\"\\\"64\\\"\""
+        },
+        {
+          "Content-Type": "\"\\\"application/json; charset=utf-8\\\"\""
+        },
+        {
+          "Expires": "\"\\\"-1\\\"\""
+        }
+      ],
+      "body": "{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"quidem molestiae enim\"\n}",
+      "httpVersion": "1.1"
+    },
+    "recordedAt": "2015-12-27T23:00:15.750+08:00"
+  },
+  {
+    "request": {
+      "method": "GET",
+      "uri": "http://jsonplaceholder.typicode.com/albums/2",
+      "requestHeaders": [],
+      "contentHeaders": [],
+      "body": ""
+    },
+    "response": {
+      "status": {
+        "code": "200",
+        "message": "OK"
+      },
+      "responseHeaders": [
+        {
+          "Connection": "\"keep-alive\""
+        },
+        {
+          "Vary": "\"Origin\""
+        },
+        {
+          "Access-Control-Allow-Credentials": "\"true\""
+        },
+        {
+          "Pragma": "\"no-cache\""
+        },
+        {
+          "X-Content-Type-Options": "\"nosniff\""
+        },
+        {
+          "Cache-Control": "\"no-cache\""
+        },
+        {
+          "Date": "\"Mon, 28 Dec 2015 14:08:16 GMT\""
+        },
+        {
+          "ETag": "\"W/\\\"4b-H9PcVq13FXxr3jpOIIvWMA\\\"\""
+        },
+        {
+          "Server": "\"Cowboy\""
+        },
+        {
+          "Via": "\"1.1 vegur\""
+        },
+        {
+          "X-Powered-By": "\"Express\""
+        }
+      ],
+      "contentHeaders": [
+        {
+          "Content-Length": "\"75\""
+        },
+        {
+          "Content-Type": "\"application/json; charset=utf-8\""
+        },
+        {
+          "Expires": "\"-1\""
+        }
+      ],
+      "body": "{\n  \"userId\": 1,\n  \"id\": 2,\n  \"title\": \"sunt qui excepturi placeat culpa\"\n}",
+      "httpVersion": "1.1"
+    },
+    "recordedAt": "2015-12-28T22:08:16.337+08:00"
+  },
+  {
+    "request": {
+      "method": "GET",
+      "uri": "http://jsonplaceholder.typicode.com/albums/3",
+      "requestHeaders": [],
+      "contentHeaders": [],
+      "body": ""
+    },
+    "response": {
+      "status": {
+        "code": "200",
+        "message": "OK"
+      },
+      "responseHeaders": [
+        {
+          "Connection": "keep-alive"
+        },
+        {
+          "Vary": "Origin"
+        },
+        {
+          "Access-Control-Allow-Credentials": "true"
+        },
+        {
+          "Pragma": "no-cache"
+        },
+        {
+          "X-Content-Type-Options": "nosniff"
+        },
+        {
+          "Cache-Control": "no-cache"
+        },
+        {
+          "Date": "Mon, 28 Dec 2015 14:08:17 GMT"
+        },
+        {
+          "ETag": "W/\"3d-34rkmsNzz1pkkP9c+UNx+g\""
+        },
+        {
+          "Server": "Cowboy"
+        },
+        {
+          "Via": "1.1 vegur"
+        },
+        {
+          "X-Powered-By": "Express"
+        }
+      ],
+      "contentHeaders": [
+        {
+          "Content-Length": "61"
+        },
+        {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        {
+          "Expires": "-1"
+        }
+      ],
+      "body": "{\n  \"userId\": 1,\n  \"id\": 3,\n  \"title\": \"omnis laborum odio\"\n}",
+      "httpVersion": "1.1"
+    },
+    "recordedAt": "2015-12-28T22:08:17.503+08:00"
+  }
+]
