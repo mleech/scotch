@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Xunit;
+using Shouldly;
 
 namespace Scotch.Tests
 {
@@ -28,7 +28,6 @@ namespace Scotch.Tests
             File.Copy(sourceReplaceMatchingTestCassette, _replaceMatchingTestCassettePath);
         }
 
-        [Fact]
         public async Task CreatesCassetteFile()
         {
             var recordingHandler = new RecordingHandler(_cassettePath);
@@ -36,15 +35,14 @@ namespace Scotch.Tests
 
             var albumService = new AlbumService(httpClient);
             var albums = await albumService.GetAllAsync();
-            Assert.True(albums.Count > 0);
-            Assert.True(File.Exists(_cassettePath));
+            albums.Count.ShouldBeGreaterThan(0);
+            File.Exists(_cassettePath).ShouldBeTrue();
         }
 
-        [Fact]
         public async Task AppendsNewInteractionsToCassetteFile()
         {
             var originalInteractionsInCassette = Cassette.ReadCassette(_appendNewTestCassettePath);
-            Assert.Equal(1, originalInteractionsInCassette.Count());
+            originalInteractionsInCassette.Count().ShouldBe(1);
 
             var recordingHandler = new RecordingHandler(_appendNewTestCassettePath);
             var httpClient = new HttpClient(recordingHandler);
@@ -53,18 +51,17 @@ namespace Scotch.Tests
             var album1 = await albumService.GetAsync(2);
             var album2 = await albumService.GetAsync(3);
 
-            Assert.Equal(2, album1.Id);
-            Assert.Equal(3, album2.Id);
+            album1.Id.ShouldBe(2);
+            album2.Id.ShouldBe(3);
 
             var newInteractionsInCassette = Cassette.ReadCassette(_appendNewTestCassettePath);
-            Assert.Equal(3, newInteractionsInCassette.Count());
+            newInteractionsInCassette.Count().ShouldBe(3);
         }
 
-        [Fact]
         public async Task ReplaceMatchingInteractionInCassetteFile()
         {
             var originalInteractionsInCassette = Cassette.ReadCassette(_replaceMatchingTestCassettePath).ToList();
-            Assert.Equal(3, originalInteractionsInCassette.Count());
+            originalInteractionsInCassette.Count.ShouldBe(3);
             var originalRecordedTime1 = originalInteractionsInCassette.ElementAt(0).RecordedAt;
             var originalRecordedTime2 = originalInteractionsInCassette.ElementAt(1).RecordedAt;
             var originalRecordedTime3 = originalInteractionsInCassette.ElementAt(2).RecordedAt;
@@ -75,18 +72,18 @@ namespace Scotch.Tests
             var albumService = new AlbumService(httpClient);
             var album = await albumService.GetAsync(2);
 
-            Assert.Equal(2, album.Id);
+            album.Id.ShouldBe(2);
 
             var newInteractionsInCassette = Cassette.ReadCassette(_replaceMatchingTestCassettePath).ToList();
-            Assert.Equal(3, newInteractionsInCassette.Count());
+            newInteractionsInCassette.Count.ShouldBe(3);
 
             var newRecordedTime1 = newInteractionsInCassette.ElementAt(0).RecordedAt;
             var newRecordedTime2 = newInteractionsInCassette.ElementAt(1).RecordedAt;
             var newRecordedTime3 = newInteractionsInCassette.ElementAt(2).RecordedAt;
 
-            Assert.Equal(originalRecordedTime1, newRecordedTime1);
-            Assert.NotEqual(originalRecordedTime2, newRecordedTime2);
-            Assert.Equal(originalRecordedTime3, newRecordedTime3);
+            originalRecordedTime1.ShouldBe(newRecordedTime1);
+            originalRecordedTime2.ShouldNotBe(newRecordedTime2);
+            originalRecordedTime3.ShouldBe(newRecordedTime3);
         }
 
         private string GetSourceFileDirectory([CallerFilePath] string sourceFilePath = "")
