@@ -1,0 +1,5 @@
+FSharp.Core
+Fleece.FSharpData
+Microsoft.Bcl
+System.Json
+System.Net.Http

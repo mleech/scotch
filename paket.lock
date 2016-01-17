@@ -1,0 +1,25 @@
+FRAMEWORK: >= NET452
+NUGET
+  remote: https://www.nuget.org/api/v2
+  specs:
+    Fixie (1.0.0.41) - version_in_path: true
+    Fleece.FSharpData (0.4.0)
+      FSharp.Data (>= 2.0.14)
+      FSharpPlus (>= 0.0.4)
+      ReadOnlyCollectionExtensions (>= 1.2.0)
+      ReadOnlyCollectionInterfaces (1.0.0)
+    FsControl (1.0.9)
+    FSharp.Core (3.0.2)
+    FSharp.Data (2.0.14)
+    FSharpPlus (0.0.4)
+      FsControl (>= 1.0.9)
+    Microsoft.Bcl (1.1.10)
+      Microsoft.Bcl.Build (>= 1.0.14)
+    Microsoft.Bcl.Build (1.0.21) - import_targets: false
+    Newtonsoft.Json (8.0.2)
+    ReadOnlyCollectionExtensions (1.2.0)
+      ReadOnlyCollectionInterfaces (1.0.0)
+    ReadOnlyCollectionInterfaces (1.0.0)
+    Shouldly (2.6.0)
+    System.Json (4.0.20126.16343)
+    System.Net.Http (4.0.0)
