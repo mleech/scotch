@@ -14,54 +14,54 @@
       },
       "responseHeaders": [
         {
-          "Connection": "\"\\\"keep-alive\\\"\""
+          "Connection": "keep-alive"
         },
         {
-          "Vary": "\"\\\"Origin\\\"\""
+          "Vary": "Origin"
         },
         {
-          "Access-Control-Allow-Credentials": "\"\\\"true\\\"\""
+          "Access-Control-Allow-Credentials": "true"
         },
         {
-          "Pragma": "\"\\\"no-cache\\\"\""
+          "Pragma": "no-cache"
         },
         {
-          "X-Content-Type-Options": "\"\\\"nosniff\\\"\""
+          "X-Content-Type-Options": "nosniff"
         },
         {
-          "Cache-Control": "\"\\\"no-cache\\\"\""
+          "Cache-Control": "no-cache"
         },
         {
-          "Date": "\"\\\"Sun, 27 Dec 2015 15:00:13 GMT\\\"\""
+          "Date": "Tue, 19 Jan 2016 12:49:52 GMT"
         },
         {
-          "ETag": "\"\\\"W/\\\\\\\"40-YY2U4cKEt8FUawcGjccrRg\\\\\\\"\\\"\""
+          "ETag": "W/\"40-YY2U4cKEt8FUawcGjccrRg\""
         },
         {
-          "Server": "\"\\\"Cowboy\\\"\""
+          "Server": "Cowboy"
         },
         {
-          "Via": "\"\\\"1.1 vegur\\\"\""
+          "Via": "1.1 vegur"
         },
         {
-          "X-Powered-By": "\"\\\"Express\\\"\""
+          "X-Powered-By": "Express"
         }
       ],
       "contentHeaders": [
         {
-          "Content-Length": "\"\\\"64\\\"\""
+          "Content-Length": "64"
         },
         {
-          "Content-Type": "\"\\\"application/json; charset=utf-8\\\"\""
+          "Content-Type": "application/json; charset=utf-8"
         },
         {
-          "Expires": "\"\\\"-1\\\"\""
+          "Expires": "-1"
         }
       ],
       "body": "{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"quidem molestiae enim\"\n}",
       "httpVersion": "1.1"
     },
-    "recordedAt": "2015-12-27T23:00:15.750+08:00"
+    "recordedAt": "2016-01-19T20:49:52.452+08:00"
   },
   {
     "request": {
@@ -78,54 +78,54 @@
       },
       "responseHeaders": [
         {
-          "Connection": "\"keep-alive\""
+          "Connection": "keep-alive"
         },
         {
-          "Vary": "\"Origin\""
+          "Vary": "Origin"
         },
         {
-          "Access-Control-Allow-Credentials": "\"true\""
+          "Access-Control-Allow-Credentials": "true"
         },
         {
-          "Pragma": "\"no-cache\""
+          "Pragma": "no-cache"
         },
         {
-          "X-Content-Type-Options": "\"nosniff\""
+          "X-Content-Type-Options": "nosniff"
         },
         {
-          "Cache-Control": "\"no-cache\""
+          "Cache-Control": "no-cache"
         },
         {
-          "Date": "\"Mon, 28 Dec 2015 14:08:16 GMT\""
+          "Date": "Tue, 19 Jan 2016 12:49:52 GMT"
         },
         {
-          "ETag": "\"W/\\\"4b-H9PcVq13FXxr3jpOIIvWMA\\\"\""
+          "ETag": "W/\"4b-H9PcVq13FXxr3jpOIIvWMA\""
         },
         {
-          "Server": "\"Cowboy\""
+          "Server": "Cowboy"
         },
         {
-          "Via": "\"1.1 vegur\""
+          "Via": "1.1 vegur"
         },
         {
-          "X-Powered-By": "\"Express\""
+          "X-Powered-By": "Express"
         }
       ],
       "contentHeaders": [
         {
-          "Content-Length": "\"75\""
+          "Content-Length": "75"
         },
         {
-          "Content-Type": "\"application/json; charset=utf-8\""
+          "Content-Type": "application/json; charset=utf-8"
         },
         {
-          "Expires": "\"-1\""
+          "Expires": "-1"
         }
       ],
       "body": "{\n  \"userId\": 1,\n  \"id\": 2,\n  \"title\": \"sunt qui excepturi placeat culpa\"\n}",
       "httpVersion": "1.1"
     },
-    "recordedAt": "2015-12-28T22:08:16.337+08:00"
+    "recordedAt": "2016-01-19T20:49:53.072+08:00"
   },
   {
     "request": {
@@ -160,7 +160,7 @@
           "Cache-Control": "no-cache"
         },
         {
-          "Date": "Mon, 28 Dec 2015 14:08:17 GMT"
+          "Date": "Tue, 19 Jan 2016 12:49:53 GMT"
         },
         {
           "ETag": "W/\"3d-34rkmsNzz1pkkP9c+UNx+g\""
@@ -189,6 +189,6 @@
       "body": "{\n  \"userId\": 1,\n  \"id\": 3,\n  \"title\": \"omnis laborum odio\"\n}",
       "httpVersion": "1.1"
     },
-    "recordedAt": "2015-12-28T22:08:17.503+08:00"
+    "recordedAt": "2016-01-19T20:49:53.751+08:00"
   }
 ]

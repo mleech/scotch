@@ -21,7 +21,8 @@ type Header =
         | JObject o ->
             monad {
                 let key = Seq.head o.Keys
-                let value = string (Seq.head o.Values)
+                let jsonValue = Seq.head o.Values
+                let value = jsonValue.AsString()
 
                 return {Header.Key = key; Value = value}
             }
