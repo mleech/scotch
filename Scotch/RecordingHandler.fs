@@ -14,6 +14,7 @@ type RecordingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     new(cassettePath:string) = new RecordingHandler(new HttpClientHandler(), cassettePath)
 
     override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
+
         let baseResult = base.SendAsync(request, cancellationToken)
 
         let updateCassetteWorkflow = async {

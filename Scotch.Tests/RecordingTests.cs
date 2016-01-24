@@ -10,63 +10,58 @@ namespace Scotch.Tests
 {
     public class RecordingTests : IDisposable
     {
-        private readonly string _cassettePath;
-        private readonly string _appendNewTestCassettePath;
-        private readonly string _replaceMatchingTestCassettePath;
+        private readonly string _newCassettePath;
+        private readonly string _testCassettePath;
 
         public RecordingTests()
         {
             var sourceFileDirectory = GetSourceFileDirectory();
-            _cassettePath = Path.Combine(sourceFileDirectory, "testCassette.json");
+            _newCassettePath = Path.Combine(sourceFileDirectory, "newCassette.json");
 
-            var sourceAppendNewTestCassette = Path.Combine(sourceFileDirectory, "TestAppendNew.json");
-            _appendNewTestCassettePath = Path.Combine(sourceFileDirectory, "TestAppendNew_copy.json");
-            File.Copy(sourceAppendNewTestCassette, _appendNewTestCassettePath);
-
-            var sourceReplaceMatchingTestCassette = Path.Combine(sourceFileDirectory, "TestReplaceMatching.json");
-            _replaceMatchingTestCassettePath = Path.Combine(sourceFileDirectory, "TestReplaceMatching_copy.json");
-            File.Copy(sourceReplaceMatchingTestCassette, _replaceMatchingTestCassettePath);
+            var origTestCassette = Path.Combine(sourceFileDirectory, "TestCassette.json");
+            _testCassettePath = Path.Combine(sourceFileDirectory, "TestCassette_copy.json");
+            File.Copy(origTestCassette, _testCassettePath);
         }
 
         public async Task CreatesCassetteFile()
         {
-            var recordingHandler = new RecordingHandler(_cassettePath);
+            var recordingHandler = new RecordingHandler(_newCassettePath);
             var httpClient = new HttpClient(recordingHandler);
 
             var albumService = new AlbumService(httpClient);
             var albums = await albumService.GetAllAsync();
             albums.Count.ShouldBeGreaterThan(0);
-            File.Exists(_cassettePath).ShouldBeTrue();
+            File.Exists(_newCassettePath).ShouldBeTrue();
         }
 
         public async Task AppendsNewInteractionsToCassetteFile()
         {
-            var originalInteractionsInCassette = Cassette.ReadCassette(_appendNewTestCassettePath);
-            originalInteractionsInCassette.Count().ShouldBe(1);
+            var preInteractionsInCassette = Cassette.ReadCassette(_testCassettePath);
+            preInteractionsInCassette.Count().ShouldBe(3);
 
-            var recordingHandler = new RecordingHandler(_appendNewTestCassettePath);
+            var recordingHandler = new RecordingHandler(_testCassettePath);
             var httpClient = new HttpClient(recordingHandler);
 
             var albumService = new AlbumService(httpClient);
-            var album1 = await albumService.GetAsync(2);
-            var album2 = await albumService.GetAsync(3);
+            var album1 = await albumService.GetAsync(4);
+            var album2 = await albumService.GetAsync(5);
 
-            album1.Id.ShouldBe(2);
-            album2.Id.ShouldBe(3);
+            album1.Id.ShouldBe(4);
+            album2.Id.ShouldBe(5);
 
-            var newInteractionsInCassette = Cassette.ReadCassette(_appendNewTestCassettePath);
-            newInteractionsInCassette.Count().ShouldBe(3);
+            var postInteractionsInCassette = Cassette.ReadCassette(_testCassettePath);
+            postInteractionsInCassette.Count().ShouldBe(5);
         }
 
         public async Task ReplaceMatchingInteractionInCassetteFile()
         {
-            var originalInteractionsInCassette = Cassette.ReadCassette(_replaceMatchingTestCassettePath).ToList();
+            var originalInteractionsInCassette = Cassette.ReadCassette(_testCassettePath).ToList();
             originalInteractionsInCassette.Count.ShouldBe(3);
             var originalRecordedTime1 = originalInteractionsInCassette.ElementAt(0).RecordedAt;
             var originalRecordedTime2 = originalInteractionsInCassette.ElementAt(1).RecordedAt;
             var originalRecordedTime3 = originalInteractionsInCassette.ElementAt(2).RecordedAt;
 
-            var recordingHandler = new RecordingHandler(_replaceMatchingTestCassettePath);
+            var recordingHandler = new RecordingHandler(_testCassettePath);
             var httpClient = new HttpClient(recordingHandler);
 
             var albumService = new AlbumService(httpClient);
@@ -74,7 +69,7 @@ namespace Scotch.Tests
 
             album.Id.ShouldBe(2);
 
-            var newInteractionsInCassette = Cassette.ReadCassette(_replaceMatchingTestCassettePath).ToList();
+            var newInteractionsInCassette = Cassette.ReadCassette(_testCassettePath).ToList();
             newInteractionsInCassette.Count.ShouldBe(3);
 
             var newRecordedTime1 = newInteractionsInCassette.ElementAt(0).RecordedAt;
@@ -93,9 +88,8 @@ namespace Scotch.Tests
 
         public void Dispose()
         {
-            File.Delete(_cassettePath);
-            File.Delete(_appendNewTestCassettePath);
-            File.Delete(_replaceMatchingTestCassettePath);
+            File.Delete(_newCassettePath);
+            File.Delete(_testCassettePath);
         }
     }
 }

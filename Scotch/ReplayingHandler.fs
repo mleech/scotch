@@ -14,9 +14,9 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
     new(cassettePath:string) = new ReplayingHandler(new HttpClientHandler(), cassettePath)
 
     override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
-        let interactions = Cassette.ReadCassette cassettePath
 
         let readCassetteWorkflow = async {
+            let interactions = Cassette.ReadCassette cassettePath
             let! receivedRequest = toRequestAsync request
 
             // TODO: Handle request not found
