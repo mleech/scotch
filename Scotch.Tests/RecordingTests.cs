@@ -1,8 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Shouldly;
 
@@ -15,7 +13,7 @@ namespace Scotch.Tests
 
         public RecordingTests()
         {
-            var sourceFileDirectory = GetSourceFileDirectory();
+            var sourceFileDirectory = TestHelpers.GetSourceFileDirectory();
             _newCassettePath = Path.Combine(sourceFileDirectory, "newCassette.json");
 
             var origTestCassette = Path.Combine(sourceFileDirectory, "TestCassette.json");
@@ -25,8 +23,7 @@ namespace Scotch.Tests
 
         public async Task CreatesCassetteFile()
         {
-            var recordingHandler = new RecordingHandler(_newCassettePath);
-            var httpClient = new HttpClient(recordingHandler);
+            var httpClient = Scotch.GetHttpClient(_newCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var albums = await albumService.GetAllAsync();
@@ -39,8 +36,7 @@ namespace Scotch.Tests
             var preInteractionsInCassette = Cassette.ReadCassette(_testCassettePath);
             preInteractionsInCassette.Count().ShouldBe(3);
 
-            var recordingHandler = new RecordingHandler(_testCassettePath);
-            var httpClient = new HttpClient(recordingHandler);
+            var httpClient = Scotch.GetHttpClient(_testCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var album1 = await albumService.GetAsync(4);
@@ -61,8 +57,7 @@ namespace Scotch.Tests
             var originalRecordedTime2 = originalInteractionsInCassette.ElementAt(1).RecordedAt;
             var originalRecordedTime3 = originalInteractionsInCassette.ElementAt(2).RecordedAt;
 
-            var recordingHandler = new RecordingHandler(_testCassettePath);
-            var httpClient = new HttpClient(recordingHandler);
+            var httpClient = Scotch.GetHttpClient(_testCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var album = await albumService.GetAsync(2);
@@ -79,11 +74,6 @@ namespace Scotch.Tests
             originalRecordedTime1.ShouldBe(newRecordedTime1);
             originalRecordedTime2.ShouldNotBe(newRecordedTime2);
             originalRecordedTime3.ShouldBe(newRecordedTime3);
-        }
-
-        private string GetSourceFileDirectory([CallerFilePath] string sourceFilePath = "")
-        {
-            return Path.GetDirectoryName(sourceFilePath);
         }
 
         public void Dispose()

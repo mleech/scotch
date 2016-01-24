@@ -122,7 +122,7 @@
           "Expires": "-1"
         }
       ],
-      "body": "{\n  \"userId\": 1,\n  \"id\": 2,\n  \"title\": \"sunt qui excepturi placeat culpa\"\n}",
+      "body": "{\n  \"userId\": 1,\n  \"id\": 2,\n  \"title\": \"Hunky Dory\"\n}",
       "httpVersion": "1.1"
     },
     "recordedAt": "2016-01-19T20:49:53.072+08:00"

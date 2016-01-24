@@ -43,6 +43,8 @@
     <Compile Include="AlbumService.cs" />
     <Compile Include="RecordingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplayingTests.cs" />
+    <Compile Include="TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
