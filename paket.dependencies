@@ -5,7 +5,6 @@ nuget FSharp.Core ~> 3.0.0
 nuget System.Json  ~> 4.0.0
 nuget Fixie ~> 1.0.0 version_in_path: true
 nuget Fleece.FSharpData  ~> 0.4.0
-nuget Microsoft.Bcl ~> 1.1.10
 nuget Shouldly ~> 2.6.0
 nuget System.Net.Http ~> 4.0.0
 nuget Newtonsoft.Json ~> 8.0.0

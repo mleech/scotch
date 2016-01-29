@@ -13,9 +13,6 @@ NUGET
     FSharp.Data (2.0.14)
     FSharpPlus (0.0.4)
       FsControl (>= 1.0.9)
-    Microsoft.Bcl (1.1.10)
-      Microsoft.Bcl.Build (>= 1.0.14)
-    Microsoft.Bcl.Build (1.0.21) - import_targets: false
     Newtonsoft.Json (8.0.2)
     ReadOnlyCollectionExtensions (1.2.0)
       ReadOnlyCollectionInterfaces (1.0.0)
