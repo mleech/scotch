@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Scotch</id>
-    <version>0.0.0.0</version>
+    <version>$version$</version>
     <authors>Martin Leech</authors>
     <owners>Martin Leech</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
