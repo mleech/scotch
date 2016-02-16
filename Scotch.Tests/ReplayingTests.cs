@@ -16,7 +16,7 @@ namespace Scotch.Tests
 
         public async Task ReplaysMatchingHttpInteractionFromCassette()
         {
-            var httpClient = Scotch.GetHttpClient(_testCassettePath, ScotchMode.Replaying);
+            var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);
 
             var albumService = new AlbumService(httpClient);
             var album = await albumService.GetAsync(2);

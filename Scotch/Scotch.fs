@@ -8,8 +8,8 @@ type ScotchMode =
     | Recording = 1
     | Replaying = 2
 
-type Scotch =
-    static member GetHttpClient (innerHandler:HttpMessageHandler, cassettePath:string, mode:ScotchMode) =
+module HttpClients =
+    let NewHttpClientWithHandler (innerHandler:HttpMessageHandler, cassettePath:string, mode:ScotchMode) =
         let handler =
             match mode with
                 | ScotchMode.Recording -> new RecordingHandler(innerHandler, cassettePath) :> HttpMessageHandler
@@ -18,7 +18,5 @@ type Scotch =
 
         new HttpClient(handler);
 
-
-    static member GetHttpClient (cassettePath:string, mode:ScotchMode) =
-        Scotch.GetHttpClient(new HttpClientHandler(), cassettePath, mode)
-
+    let NewHttpClient (cassettePath:string, mode:ScotchMode) =
+        NewHttpClientWithHandler(new HttpClientHandler(), cassettePath, mode)

@@ -23,7 +23,7 @@ namespace Scotch.Tests
 
         public async Task CreatesCassetteFile()
         {
-            var httpClient = Scotch.GetHttpClient(_newCassettePath, ScotchMode.Recording);
+            var httpClient = HttpClients.NewHttpClient(_newCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var albums = await albumService.GetAllAsync();
@@ -36,7 +36,7 @@ namespace Scotch.Tests
             var preInteractionsInCassette = Cassette.ReadCassette(_testCassettePath);
             preInteractionsInCassette.Count().ShouldBe(3);
 
-            var httpClient = Scotch.GetHttpClient(_testCassettePath, ScotchMode.Recording);
+            var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var album1 = await albumService.GetAsync(4);
@@ -57,7 +57,7 @@ namespace Scotch.Tests
             var originalRecordedTime2 = originalInteractionsInCassette.ElementAt(1).RecordedAt;
             var originalRecordedTime3 = originalInteractionsInCassette.ElementAt(2).RecordedAt;
 
-            var httpClient = Scotch.GetHttpClient(_testCassettePath, ScotchMode.Recording);
+            var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Recording);
 
             var albumService = new AlbumService(httpClient);
             var album = await albumService.GetAsync(2);
