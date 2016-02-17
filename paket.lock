@@ -2,6 +2,7 @@ FRAMEWORK: >= NET452
 NUGET
   remote: https://www.nuget.org/api/v2
   specs:
+    FAKE (4.20.0)
     Fixie (1.0.0.41) - version_in_path: true
     Fleece.FSharpData (0.4.0)
       FSharp.Data (>= 2.0.14)

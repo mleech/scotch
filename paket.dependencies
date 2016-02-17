@@ -8,3 +8,4 @@ nuget Fleece.FSharpData  ~> 0.4.0
 nuget Shouldly ~> 2.6.0
 nuget System.Net.Http ~> 4.0.0
 nuget Newtonsoft.Json ~> 8.0.0
+nuget FAKE
