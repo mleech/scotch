@@ -5,7 +5,7 @@ open Fleece.Operators
 open FSharpPlus
 open FSharp.Data
 open System
-open System.IO
+open System.Text
 open System.Net
 open System.Net.Http
 
@@ -94,7 +94,7 @@ type Response =
         result.ReasonPhrase <- this.Status.Message
         result.Version <- this.HttpVersion
         for h in this.ResponseHeaders do result.Headers.TryAddWithoutValidation(h.Key, h.Value) |> ignore
-        let content = new StringContent(this.Body)
+        let content = new ByteArrayContent(Encoding.UTF8.GetBytes(this.Body))
         for h in this.ContentHeaders do content.Headers.TryAddWithoutValidation(h.Key, h.Value) |> ignore
         result.Content <- content
         result
