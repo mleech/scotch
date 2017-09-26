@@ -1,7 +1,7 @@
 RESTRICTION: >= net452
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.63)
+    FAKE (4.63.2)
     Fixie (1.0.2) - version_in_path: true
     Fleece.FSharpData (0.4)
       FSharp.Data (>= 2.0.14)
@@ -20,3 +20,9 @@ NUGET
     Shouldly (2.6)
     System.Json (4.0.20126.16343)
     System.Net.Http (4.0)
+
+GROUP Test
+RESTRICTION: >= net452
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FSharp.Core (3.1.2.5) - redirects: force

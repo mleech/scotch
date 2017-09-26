@@ -1,4 +1,6 @@
 Fixie
 Newtonsoft.Json
 Shouldly
-FSharp.Core
+
+group Test
+    FSharp.Core

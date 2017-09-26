@@ -9,3 +9,8 @@ nuget Shouldly ~> 2.6.0
 nuget System.Net.Http ~> 4.0.0
 nuget Newtonsoft.Json ~> 8.0.0
 nuget FAKE
+
+group Test
+    source https://www.nuget.org/api/v2
+    framework >= net452
+    nuget FSharp.Core redirects: force
