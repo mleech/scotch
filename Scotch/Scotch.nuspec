@@ -7,7 +7,7 @@
     <owners>Martin Leech</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library for recording and replaying HTTP interactions. Inspired by the VCR ruby gem.</description>
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>test testing scotch vcr http record replay</tags>
     <dependencies>
       <dependency id="FSharp.Core" version="3.0.0" />
