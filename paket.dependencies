@@ -1,5 +1,6 @@
+storage: none
 source https://www.nuget.org/api/v2
-framework >= net452
+framework >= netstandard2.0
 
 nuget FSharp.Core ~> 3.0.0
 nuget System.Json  ~> 4.0.0
@@ -12,5 +13,5 @@ nuget FAKE
 
 group Test
     source https://www.nuget.org/api/v2
-    framework >= net452
+    framework >= netcoreapp2.0
     nuget FSharp.Core redirects: force
