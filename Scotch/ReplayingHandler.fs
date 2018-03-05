@@ -1,11 +1,7 @@
 ﻿namespace Scotch
 
-open Fleece
 open System
-open System.IO
-open System.Net
 open System.Net.Http
-open System.Threading.Tasks
 open Scotch.Helpers
 
 type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
@@ -13,7 +9,7 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
 
     new(cassettePath:string) = new ReplayingHandler(new HttpClientHandler(), cassettePath)
 
-    override handler.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
+    override __.SendAsync (request:HttpRequestMessage, cancellationToken:Threading.CancellationToken) =
 
         let readCassetteWorkflow = async {
             let interactions = Cassette.ReadCassette cassettePath

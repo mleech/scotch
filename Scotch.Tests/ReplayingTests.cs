@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Shouldly;
 

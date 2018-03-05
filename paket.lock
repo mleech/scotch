@@ -2,22 +2,10 @@ STORAGE: NONE
 RESTRICTION: >= netstandard2.0
 NUGET
   remote: https://www.nuget.org/api/v2
-    Fleece.FSharpData (0.4)
-      FSharp.Data (>= 2.0.14)
-      FSharpPlus (>= 0.0.4)
-      ReadOnlyCollectionExtensions (>= 1.2)
-      ReadOnlyCollectionInterfaces (1.0)
-    FsControl (1.0.9)
-    FSharp.Core (3.0.2)
-    FSharp.Data (2.4.5)
-      Zlib.Portable (>= 1.11) - restriction: && (< net40) (>= netstandard2.0)
-    FSharpPlus (0.0.4)
-      FsControl (>= 1.0.9)
+    FSharp.Core (4.3.4)
     Microsoft.NETCore.Platforms (2.0.1) - restriction: || (&& (< net45) (>= netstandard2.0)) (&& (>= netstandard2.0) (< portable-net45+win8+wpa81))
     Microsoft.NETCore.Targets (2.0) - restriction: && (< net45) (>= netstandard2.0)
-    ReadOnlyCollectionExtensions (1.3)
-      ReadOnlyCollectionInterfaces (1.0) - restriction: && (>= net20) (>= netstandard2.0)
-    ReadOnlyCollectionInterfaces (1.0)
+    Newtonsoft.Json (11.0.1)
     runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3.2) - restriction: && (< net45) (>= netstandard2.0)
     runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3.2) - restriction: && (< net45) (>= netstandard2.0)
     runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3.2) - restriction: && (< net45) (>= netstandard2.0)
@@ -112,7 +100,6 @@ NUGET
       System.Threading.Tasks (>= 4.3) - restriction: && (< net46) (>= netstandard2.0)
     System.IO.FileSystem.Primitives (4.3) - restriction: && (< net45) (>= netstandard2.0)
       System.Runtime (>= 4.3) - restriction: && (< net46) (>= netstandard2.0)
-    System.Json (4.4)
     System.Linq (4.3) - restriction: && (< net45) (>= netstandard2.0)
       System.Collections (>= 4.3) - restriction: || (&& (< net45) (>= netstandard2.0)) (&& (>= netstandard2.0) (< portable-net45+win8+wp8+wpa81))
       System.Diagnostics.Debug (>= 4.3) - restriction: || (&& (< net45) (>= netstandard2.0)) (&& (>= netstandard2.0) (< portable-net45+win8+wp8+wpa81))
@@ -281,7 +268,6 @@ NUGET
       Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard2.0) (< win8) (< wpa81)) (&& (>= netstandard2.0) (< portable-net45+win8+wp8+wpa81))
       Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard2.0) (< win8) (< wpa81)) (&& (>= netstandard2.0) (< portable-net45+win8+wp8+wpa81))
       System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard2.0) (< win8) (< wpa81)) (&& (>= netstandard2.0) (< portable-net45+win8+wp8+wpa81))
-    Zlib.Portable (1.11) - restriction: && (< net40) (>= netstandard2.0)
 
 GROUP Build
 NUGET
@@ -729,7 +715,7 @@ NUGET
       System.Threading.Tasks (>= 4.3)
     System.Security.Principal.Windows (4.4.1) - version_in_path: true
       Microsoft.NETCore.Platforms (>= 2.0)
-    System.Text.Encoding (4.3) - version_in_path: true
+    System.Text.Encoding (4.3.0) - version_in_path: true
       Microsoft.NETCore.Platforms (>= 1.1)
       Microsoft.NETCore.Targets (>= 1.1)
       System.Runtime (>= 4.3)

@@ -1,4 +1,3 @@
 FSharp.Core
-Fleece.FSharpData
-System.Json
 System.Net.Http
+Newtonsoft.Json
