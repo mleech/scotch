@@ -80,5 +80,5 @@ module Helpers =
         }
 
     let requestsMatch receivedRequest recordedRequest =
-        receivedRequest.Method.Equals(recordedRequest.Method, StringComparison.InvariantCultureIgnoreCase)
-        && receivedRequest.URI.Equals(recordedRequest.URI, StringComparison.InvariantCultureIgnoreCase)
+        receivedRequest.Method.Equals(recordedRequest.Method, StringComparison.OrdinalIgnoreCase)
+        && receivedRequest.URI.Equals(recordedRequest.URI, StringComparison.OrdinalIgnoreCase)
