@@ -1,6 +1,5 @@
-Fixie
-Newtonsoft.Json
-Shouldly
-
-group Test
+group Tests
     FSharp.Core
+    Fixie
+    Newtonsoft.Json
+    Shouldly

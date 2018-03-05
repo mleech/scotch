@@ -1,7 +1,7 @@
 // include Fake lib
-#r @"packages/FAKE/tools/FakeLib.dll"
+#r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
-open Fake.FixieHelper
+open Fake.DotNetCli
 
 // Properties
 let buildDir = "./build/"
@@ -12,21 +12,15 @@ Target "Clean" (fun _ ->
     CleanDirs [buildDir; testDir]
 )
 
-Target "BuildApp" (fun _ ->
-    !! "Scotch/*.fsproj"
-      |> MSBuildRelease buildDir "Build"
-      |> Log "AppBuild-Output: "
-)
-
-Target "BuildTest" (fun _ ->
-    !! "Scotch.Tests/*.csproj"
-      |> MSBuildDebug testDir "Build"
-      |> Log "TestBuild-Output: "
+Target "Build" (fun _ ->
+    DotNetCli.Build ( fun p -> { p with Project = "Scotch/Scotch.fsproj";
+                                        Configuration = "Release";
+                                        Output = buildDir })
 )
 
 Target "Test" (fun _ ->
-    !! (testDir @@ "*.Tests.dll")
-      |> Fixie (fun p -> p)
+    DotNetCli.Test (fun p -> { p with Project = "Scotch.Tests/Scotch.Tests.csproj";
+                                      AdditionalArgs = [ "--output " + testDir ] })
 )
 
 Target "Default" (fun _ ->
@@ -35,8 +29,7 @@ Target "Default" (fun _ ->
 
 // Dependencies
 "Clean"
-  ==> "BuildApp"
-  ==> "BuildTest"
+  ==> "Build"
   ==> "Test"
   ==> "Default"
 
