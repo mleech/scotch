@@ -6,8 +6,8 @@
     <AssemblyName>scotch</AssemblyName>
     <AssemblyCopyright>Copyright ©  2018</AssemblyCopyright>
     <PackageId>scotch</PackageId>
-    <AssemblyVersion>0.1.1.0</AssemblyVersion>
-    <AssemblyFileVersion>0.1.1.0</AssemblyFileVersion>
+    <AssemblyVersion>0.1.2.0</AssemblyVersion>
+    <AssemblyFileVersion>0.1.2.0</AssemblyFileVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="HttpInteraction.fs" />
