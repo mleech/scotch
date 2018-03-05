@@ -2,10 +2,11 @@
 #r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
 open Fake.DotNetCli
+open System.IO
 
 // Properties
-let buildDir = "./build/"
-let testDir  = "./test/"
+let buildDir = Path.Combine(FileUtils.pwd(), "build/")
+let testDir  = Path.Combine(FileUtils.pwd(), "test/")
 
 // Targets
 Target "Clean" (fun _ ->
