@@ -227,3 +227,6 @@ packages/
 
 # Visual Studio Code
 .vscode/
+
+# output of paket pack
+nuget/

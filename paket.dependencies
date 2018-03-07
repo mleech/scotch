@@ -2,9 +2,9 @@ storage: none
 source https://www.nuget.org/api/v2
 framework >= netstandard1.6
 
-nuget FSharp.Core
-nuget Newtonsoft.Json
-nuget System.Net.Http
+nuget FSharp.Core >= 4.1
+nuget Newtonsoft.Json >= 9.0
+nuget System.Net.Http >= 4.1
 
 group Build
 	source https://www.nuget.org/api/v2

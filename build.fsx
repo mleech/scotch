@@ -2,36 +2,34 @@
 #r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
 open Fake.DotNetCli
-open System.IO
-
-// Properties
-let buildDir = Path.Combine(FileUtils.pwd(), "build/")
-let testDir  = Path.Combine(FileUtils.pwd(), "test/")
 
 // Targets
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; testDir]
+    !! "Scotch/**/bin"
+    ++ "Scotch.Tests/**/bin"
+    |> CleanDirs
 )
 
 Target "Build" (fun _ ->
     DotNetCli.Build ( fun p -> { p with Project = "Scotch/Scotch.fsproj";
-                                        Configuration = "Release";
-                                        Output = buildDir })
+                                        Configuration = "Release"; })
 )
 
-Target "Test" (fun _ ->
-    DotNetCli.Test (fun p -> { p with Project = "Scotch.Tests/Scotch.Tests.csproj";
-                                      AdditionalArgs = [ "--output " + testDir ] })
+Target "RunTests" (fun _ ->
+    DotNetCli.Test (fun p -> { p with Project = "Scotch.Tests/Scotch.Tests.csproj"; })
 )
 
-Target "Default" (fun _ ->
-    trace "Hello World from FAKE"
+Target "Package" (fun _ ->
+    Paket.Pack (fun p -> { p with OutputPath = "nuget"; })
 )
+
+Target "Default" DoNothing
 
 // Dependencies
 "Clean"
   ==> "Build"
-  ==> "Test"
+  ==> "RunTests"
+  ==> "Package"
   ==> "Default"
 
 // start build
