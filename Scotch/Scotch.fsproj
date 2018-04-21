@@ -15,7 +15,6 @@
     <Compile Include="RecordingHandler.fs" />
     <Compile Include="ReplayingHandler.fs" />
     <Compile Include="Scotch.fs" />
-    <None Include="App.config" />
     <None Include="paket.references" />
     <None Include="Scotch.nuspec" />
   </ItemGroup>
