@@ -6,7 +6,7 @@
 ## What is Scotch?
 Scotch is a library for recording and replaying HTTP interactions in your test suite.
 This can be useful for speeding up your test suite,
-or for running your tests on a CI server which doesn't have 
+or for running your tests on a CI server which doesn't have
 connectivity to the HTTP endpoints you need to interact with.
 
 Scotch is based on the [VCR gem](https://github.com/vcr/vcr).
