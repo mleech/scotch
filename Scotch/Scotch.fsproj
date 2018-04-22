@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <OutputType>Library</OutputType>
-    <AssemblyName>scotch</AssemblyName>
+    <AssemblyName>Scotch</AssemblyName>
     <AssemblyCopyright>Copyright © 2018</AssemblyCopyright>
-    <PackageId>scotch</PackageId>
+    <PackageId>Scotch</PackageId>
     <AssemblyVersion>0.1.2.0</AssemblyVersion>
     <AssemblyFileVersion>0.1.2.0</AssemblyFileVersion>
   </PropertyGroup>
