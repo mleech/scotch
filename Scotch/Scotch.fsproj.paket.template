@@ -11,3 +11,7 @@ copyright
     Copyright 2018
 tags
     test testing scotch vcr http record replay
+dependencies
+    FSharp.Core >= LOCKEDVERSION
+    Newtonsoft.Json >= LOCKEDVERSION
+    System.Net.Http >= LOCKEDVERSION
