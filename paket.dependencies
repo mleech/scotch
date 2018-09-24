@@ -14,6 +14,8 @@ group Tests
     source https://www.nuget.org/api/v2
     framework >= netcoreapp2.0
     nuget FSharp.Core redirects: force
-    nuget Fixie >= 2.0.0-beta-0001 version_in_path: true
+    nuget Microsoft.NET.Test.Sdk 
+    nuget xunit
+    nuget xunit.runner.visualstudio 
     nuget Shouldly
     nuget Newtonsoft.Json
