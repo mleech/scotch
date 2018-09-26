@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Shouldly;
+using Xunit;
 
 namespace Scotch.Tests
 {
@@ -15,6 +15,7 @@ namespace Scotch.Tests
             _testCassettePath = Path.Combine(sourceFileDirectory, "TestCassette.json");
         }
 
+        [Fact]
         public async Task ReplaysMatchingHttpInteractionFromCassette()
         {
             var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);
@@ -25,6 +26,7 @@ namespace Scotch.Tests
             album.Title.ShouldBe("Hunky Dory");
         }
 
+        [Fact]
         public async Task ReplayedResponseHasCorrectContentType()
         {
             var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);

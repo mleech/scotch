@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{A61569
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Scotch", "scotch\Scotch.fsproj", "{D67D69B9-E895-41E6-881B-FE4CD6235C73}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Scotch", "Scotch\Scotch.fsproj", "{D67D69B9-E895-41E6-881B-FE4CD6235C73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scotch.Tests", "Scotch.Tests\Scotch.Tests.csproj", "{E0A16E71-5E47-449D-97C1-D9EF205E2668}"
 EndProject

@@ -1,10 +1,9 @@
 namespace Scotch
 
-open Fleece
 open System
 open System.IO
-open System.Net
-open System.Net.Http
+open Newtonsoft.Json
+open Newtonsoft.Json.Converters
 
 module Cassette =
     let locker = new Object()
@@ -14,17 +13,11 @@ module Cassette =
             Seq.empty
         else
             let jsonString = File.ReadAllText(cassettePath)
-            let cassetteParseResult = parseJSON jsonString
-
-            let interactions =
-                match cassetteParseResult with
-                | Success x -> List.toSeq x
-                | Failure y -> failwith (sprintf "Error parsing the cassette file, Error: %A" y)
-
-            interactions
+            let cassetteParseResult = JsonConvert.DeserializeObject<List<HttpInteraction>> (jsonString, new VersionConverter())
+            List.toSeq cassetteParseResult
 
     let WriteCassette cassettePath (httpInteractions: HttpInteraction seq) =
-            let serializedInteraction = toJSON (Seq.toList httpInteractions)
+            let serializedInteraction = JsonConvert.SerializeObject (Seq.toList httpInteractions, Formatting.Indented, new VersionConverter())
             File.WriteAllText (cassettePath, serializedInteraction.ToString())
 
     let UpdateInteraction cassettePath httpInteraction =

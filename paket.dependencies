@@ -1,16 +1,21 @@
+storage: none
 source https://www.nuget.org/api/v2
-framework >= net452
+framework >= netstandard1.6
 
-nuget FSharp.Core ~> 3.0.0
-nuget System.Json  ~> 4.0.0
-nuget Fixie ~> 1.0.0 version_in_path: true
-nuget Fleece.FSharpData  ~> 0.4.0
-nuget Shouldly ~> 2.6.0
-nuget System.Net.Http ~> 4.0.0
-nuget Newtonsoft.Json ~> 8.0.0
-nuget FAKE
+nuget FSharp.Core = 4.2.3
+nuget Newtonsoft.Json = 10.0.1
+nuget System.Net.Http = 4.3
 
-group Test
+group Build
+	source https://www.nuget.org/api/v2
+    nuget FAKE
+
+group Tests
     source https://www.nuget.org/api/v2
-    framework >= net452
+    framework >= netcoreapp2.0
     nuget FSharp.Core redirects: force
+    nuget Microsoft.NET.Test.Sdk
+    nuget xunit
+    nuget xunit.runner.visualstudio
+    nuget Shouldly
+    nuget Newtonsoft.Json = 10.0.1

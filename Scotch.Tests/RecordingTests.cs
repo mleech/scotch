@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Shouldly;
+using Xunit;
 
 namespace Scotch.Tests
 {
@@ -21,6 +22,7 @@ namespace Scotch.Tests
             File.Copy(origTestCassette, _testCassettePath);
         }
 
+        [Fact]
         public async Task CreatesCassetteFile()
         {
             var httpClient = HttpClients.NewHttpClient(_newCassettePath, ScotchMode.Recording);
@@ -31,6 +33,7 @@ namespace Scotch.Tests
             File.Exists(_newCassettePath).ShouldBeTrue();
         }
 
+        [Fact]
         public async Task AppendsNewInteractionsToCassetteFile()
         {
             var preInteractionsInCassette = Cassette.ReadCassette(_testCassettePath);
@@ -49,6 +52,7 @@ namespace Scotch.Tests
             postInteractionsInCassette.Count().ShouldBe(5);
         }
 
+        [Fact]
         public async Task ReplaceMatchingInteractionInCassetteFile()
         {
             var originalInteractionsInCassette = Cassette.ReadCassette(_testCassettePath).ToList();

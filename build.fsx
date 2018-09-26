@@ -1,43 +1,35 @@
 // include Fake lib
-#r @"packages/FAKE/tools/FakeLib.dll"
+#r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
-open Fake.FixieHelper
-
-// Properties
-let buildDir = "./build/"
-let testDir  = "./test/"
+open Fake.DotNetCli
 
 // Targets
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; testDir]
+    !! "Scotch/**/bin"
+    ++ "Scotch.Tests/**/bin"
+    |> CleanDirs
 )
 
-Target "BuildApp" (fun _ ->
-    !! "Scotch/*.fsproj"
-      |> MSBuildRelease buildDir "Build"
-      |> Log "AppBuild-Output: "
+Target "Build" (fun _ ->
+    DotNetCli.Build ( fun p -> { p with Project = "Scotch/Scotch.fsproj";
+                                        Configuration = "Release"; })
 )
 
-Target "BuildTest" (fun _ ->
-    !! "Scotch.Tests/*.csproj"
-      |> MSBuildDebug testDir "Build"
-      |> Log "TestBuild-Output: "
+Target "RunTests" (fun _ ->
+    DotNetCli.Test (fun p -> { p with Project = "Scotch.Tests/Scotch.Tests.csproj"; })
 )
 
-Target "Test" (fun _ ->
-    !! (testDir @@ "*.Tests.dll")
-      |> Fixie (fun p -> p)
+Target "Package" (fun _ ->
+    Paket.Pack (fun p -> { p with OutputPath = "nuget"; })
 )
 
-Target "Default" (fun _ ->
-    trace "Hello World from FAKE"
-)
+Target "Default" DoNothing
 
 // Dependencies
 "Clean"
-  ==> "BuildApp"
-  ==> "BuildTest"
-  ==> "Test"
+  ==> "Build"
+  ==> "RunTests"
+  ==> "Package"
   ==> "Default"
 
 // start build
