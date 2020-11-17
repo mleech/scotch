@@ -37,5 +37,15 @@ namespace Scotch.Tests
             response.Content.Headers.ContentType.MediaType.ShouldBe("application/json");
 
         }
+
+        [Fact]
+        public async Task ReplayedResponseHasAttachedRequest()
+        {
+            var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);
+            var albumService = new AlbumService(httpClient);
+            var originalUrl = await albumService.GetOriginalRequestUrl(2);
+
+            originalUrl.ShouldBe("http://jsonplaceholder.typicode.com/albums/2");
+        }
     }
 }
