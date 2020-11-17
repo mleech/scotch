@@ -19,6 +19,7 @@ type ReplayingHandler(innerHandler:HttpMessageHandler, cassettePath:string) =
             let matchedInteraction = Seq.find (fun i -> requestsMatch receivedRequest i.Request) interactions
             let matchedResponse = matchedInteraction.Response
             let responseMessage = matchedResponse.ToHttpResponseMessage()
+            responseMessage.RequestMessage <- matchedInteraction.Request.ToHttpRequestMessage()
             return responseMessage
         }
 

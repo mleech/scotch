@@ -13,7 +13,17 @@ type Request =
       URI : string
       RequestHeaders : HeaderDictionary
       ContentHeaders : HeaderDictionary
-      Body : string }
+      Body : string } with
+    member this.ToHttpRequestMessage () =
+        let result = new HttpRequestMessage()
+        result.Method <- new HttpMethod(this.Method)
+        result.RequestUri <- new System.Uri(this.URI)
+        for h in this.RequestHeaders do result.Headers.TryAddWithoutValidation(h.Key, h.Value.ToString()) |> ignore
+        let content = new ByteArrayContent(Encoding.UTF8.GetBytes(this.Body))
+        for h in this.ContentHeaders do content.Headers.TryAddWithoutValidation(h.Key, h.Value.ToString()) |> ignore
+        result.Content <- content
+        result
+
 
 type Status =
     { Code : HttpStatusCode

@@ -47,5 +47,13 @@ namespace Scotch.Tests
 
             return album;
         }
+
+        public async Task<string> GetOriginalRequestUrl(int id)
+        {
+            var url = $"http://jsonplaceholder.typicode.com/albums/{id}";
+            var response = await _httpClient.GetAsync(url);
+
+            return response.RequestMessage.RequestUri.ToString();
+        }
     }
 }
