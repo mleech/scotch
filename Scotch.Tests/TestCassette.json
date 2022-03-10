@@ -2,7 +2,7 @@
   {
     "request": {
       "method": "GET",
-      "uri": "http://jsonplaceholder.typicode.com/albums/1",
+      "uri": "https://jsonplaceholder.typicode.com/albums/1",
       "requestHeaders": {},
       "contentHeaders": {},
       "body": ""
@@ -38,7 +38,7 @@
   {
     "request": {
       "method": "GET",
-      "uri": "http://jsonplaceholder.typicode.com/albums/2",
+      "uri": "https://jsonplaceholder.typicode.com/albums/2",
       "requestHeaders": {},
       "contentHeaders": {},
       "body": ""
@@ -74,7 +74,7 @@
   {
     "request": {
       "method": "GET",
-      "uri": "http://jsonplaceholder.typicode.com/albums/3",
+      "uri": "https://jsonplaceholder.typicode.com/albums/3",
       "requestHeaders": {},
       "contentHeaders": {},
       "body": ""

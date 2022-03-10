@@ -1,14 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\scotch\Scotch.fsproj" />
+    <ProjectReference Include="..\Scotch\Scotch.csproj" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Remove="FSharp.Core" />
+    <PackageReference Remove="Shouldly" />
+    <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Remove="xunit" />
+    <PackageReference Remove="xunit.abstractions" />
+    <PackageReference Remove="xunit.analyzers" />
+    <PackageReference Remove="xunit.assert" />
+    <PackageReference Remove="xunit.core" />
+    <PackageReference Remove="xunit.extensibility.core" />
+    <PackageReference Remove="xunit.runner.visualstudio" />
+    <PackageReference Remove="xunit.extensibility.execution" />
+  </ItemGroup>
 </Project>

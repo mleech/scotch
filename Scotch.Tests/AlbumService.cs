@@ -29,7 +29,7 @@ namespace Scotch.Tests
 
         public async Task<IList<Album>> GetAllAsync()
         {
-            var response = await _httpClient.GetAsync("http://jsonplaceholder.typicode.com/albums");
+            var response = await _httpClient.GetAsync("https://jsonplaceholder.typicode.com/albums");
             var jsonString = await response.Content.ReadAsStringAsync();
 
             var albums = JsonConvert.DeserializeObject<IList<Album>>(jsonString);
@@ -39,7 +39,7 @@ namespace Scotch.Tests
 
         public async Task<Album> GetAsync(int id)
         {
-            var url = $"http://jsonplaceholder.typicode.com/albums/{id}";
+            var url = $"https://jsonplaceholder.typicode.com/albums/{id}";
             var response = await _httpClient.GetAsync(url);
             var jsonString = await response.Content.ReadAsStringAsync();
 

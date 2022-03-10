@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Shouldly;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Scotch.Tests
 {
+    [TestClass]
     public class ReplayingTests
     {
         private readonly string _testCassettePath;
@@ -15,27 +15,26 @@ namespace Scotch.Tests
             _testCassettePath = Path.Combine(sourceFileDirectory, "TestCassette.json");
         }
 
-        [Fact]
+        [TestMethod]
         public async Task ReplaysMatchingHttpInteractionFromCassette()
         {
             var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);
 
             var albumService = new AlbumService(httpClient);
             var album = await albumService.GetAsync(2);
-
-            album.Title.ShouldBe("Hunky Dory");
+            
+            Assert.AreEqual("Hunky Dory", album.Title);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task ReplayedResponseHasCorrectContentType()
         {
             var httpClient = HttpClients.NewHttpClient(_testCassettePath, ScotchMode.Replaying);
 
-            var url = "http://jsonplaceholder.typicode.com/albums/2";
+            var url = "https://jsonplaceholder.typicode.com/albums/2";
             var response = await httpClient.GetAsync(url);
-
-            response.Content.Headers.ContentType.MediaType.ShouldBe("application/json");
-
+            
+            Assert.AreEqual("application/json", response.Content.Headers.ContentType.MediaType);
         }
     }
 }

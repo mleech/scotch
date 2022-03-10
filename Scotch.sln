@@ -3,19 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{A615696C-B6DF-471A-8264-85225CB4D48A}"
-	ProjectSection(SolutionItems) = preProject
-		paket.dependencies = paket.dependencies
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scotch", "Scotch\Scotch.csproj", "{548240D7-3DDC-4256-A3EB-86FB249E3375}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Scotch", "Scotch\Scotch.fsproj", "{D67D69B9-E895-41E6-881B-FE4CD6235C73}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scotch.Tests", "Scotch.Tests\Scotch.Tests.csproj", "{E0A16E71-5E47-449D-97C1-D9EF205E2668}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D828B320-6648-46AE-9CED-F7371F363F2F}"
-	ProjectSection(SolutionItems) = preProject
-		README.markdown = README.markdown
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scotch.Tests", "Scotch.Tests\Scotch.Tests.csproj", "{F44D9A65-279B-47B9-8CF0-11CB3ACC4370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +13,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D67D69B9-E895-41E6-881B-FE4CD6235C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D67D69B9-E895-41E6-881B-FE4CD6235C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D67D69B9-E895-41E6-881B-FE4CD6235C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D67D69B9-E895-41E6-881B-FE4CD6235C73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0A16E71-5E47-449D-97C1-D9EF205E2668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0A16E71-5E47-449D-97C1-D9EF205E2668}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0A16E71-5E47-449D-97C1-D9EF205E2668}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0A16E71-5E47-449D-97C1-D9EF205E2668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B95235-8B0E-4A66-96E7-FA79116AE596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B95235-8B0E-4A66-96E7-FA79116AE596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B95235-8B0E-4A66-96E7-FA79116AE596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B95235-8B0E-4A66-96E7-FA79116AE596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{548240D7-3DDC-4256-A3EB-86FB249E3375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{548240D7-3DDC-4256-A3EB-86FB249E3375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{548240D7-3DDC-4256-A3EB-86FB249E3375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{548240D7-3DDC-4256-A3EB-86FB249E3375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44D9A65-279B-47B9-8CF0-11CB3ACC4370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44D9A65-279B-47B9-8CF0-11CB3ACC4370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44D9A65-279B-47B9-8CF0-11CB3ACC4370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44D9A65-279B-47B9-8CF0-11CB3ACC4370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
